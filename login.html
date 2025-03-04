@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Inicio de Sesión</title>
+</head>
+<body>
+    <form id="loginForm">
+        <h2>Iniciar Sesión</h2>
+        <input type="email" id="email" placeholder="Correo electrónico" >
+        <input type="password" id="password" placeholder="Contraseña" >
+        <span id="errorMsg" class="error"></span>
+        <button type="submit">Ingresar</button>
+    </form>
+    <script src="js/login.js" type="module"></script>
+</body>
+</html>
