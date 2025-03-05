@@ -14,9 +14,7 @@
         <nav>
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="/register.html">Register</a></li>
             </ul>
         </nav>
     </header>
@@ -27,30 +25,24 @@
             <p>Contenido de la sección de inicio.</p>
         </section>
 
-        <section id="sobre-nosotros">
-            <h2>Sobre Nosotros</h2>
-            <p>Información sobre la empresa o el sitio web.</p>
-        </section>
-
-        <section id="servicios">
-            <h2>Servicios</h2>
-            <p>Descripción de los servicios ofrecidos.</p>
-        </section>
-
-        <section id="contacto">
-            <h2>Contacto</h2>
-            <p>Información de contacto o formulario de contacto.</p>
-        </section>
+        <h1>Lista de Usuarios</h1>
+        <table id="usersTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los usuarios se agregarán aquí con JS -->
+            </tbody>
+        </table>
     </main>
 
     <footer>
-        <p>&copy; 2023 Mi Página Principal. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Mi Página Principal. Todos los derechos reservados.</p>
     </footer>
-
-    <!-- Enlace a archivos JavaScript -->
-    <script src="scripts.js"></script>
-    <h1>This is a simple check list app</h1>
-    <button>Log In</button>
-    <button>Sign In</button>
+    <script src="js/index.js" type="module"></script>
   </body>
 </html>
