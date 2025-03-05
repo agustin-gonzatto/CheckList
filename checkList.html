@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Checklist</title>
+    <style>
+        
+    </style>
+</head>
+<body id="checklist-page">
+    <div class="container-checklists">
+
+        <h1>Checklist</h1>
+        <div class="checklist-container-specific">
+           
+                
+                <div id="checklist" class="checklist">
+                    <!-- Checklist items will be added here dynamically -->
+                </div>     
+            
+            <div class="actions">
+                <button onclick="addChecklistItem()">Add Item</button>
+                <br><br>
+                <label for="visibility">Visibility:</label>
+                    <select id="visibility">
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    </select>
+                    <br><br>
+                <button onclick="saveChecklist()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addChecklistItem() {
+            const checklist = document.getElementById('checklist');
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'checklist-item';
+
+            const input = document.createElement('input');
+            input.className = 'input-line';
+            input.type = 'text';
+            input.placeholder = '';
+            
+            
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'X';
+            deleteButton.onclick = () => checklist.removeChild(itemDiv);
+            deleteButton.className = 'btn-delete';
+            itemDiv.appendChild(input);
+            itemDiv.appendChild(deleteButton);
+            checklist.appendChild(itemDiv);
+        }
+
+        function saveChecklist() {
+            const items = [];
+            document.querySelectorAll('.checklist-item').forEach(itemDiv => {
+                const input = itemDiv.querySelector('input[type="text"]');
+                items.push({
+                    text: input.value
+                });
+            });
+
+            const visibility = document.getElementById('visibility').value;
+
+            fetch('/api/checklist', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ items, visibility })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Checklist saved successfully!');
+                window.location.href = '/dashboard.html';
+            })
+            .catch(error => {
+                console.error('Error saving checklist:', error);
+                alert('Failed to save checklist.');
+            });
+        }
+    </script>
+</body>
+</html>

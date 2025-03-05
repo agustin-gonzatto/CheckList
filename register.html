@@ -2,23 +2,24 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' http://186.54.89.17:8080;">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <title>Registro</title>
 </head>
-<body>
-    <form id="registerForm">
-        <h2>Registro</h2>
-        <input type="text" id="name" placeholder="Nombre" >
-        <input type="email" id="email" placeholder="Correo electrónico" >
-        <input type="password" id="password" placeholder="Contraseña" >
-        <input type="password" id="confirmPassword" placeholder="Repetir contraseña" >
+<body class="body-login-register">
+    <form class="login-registerForm" id="registerForm">
+        <h2 style="width: 20%;">Registro</h2>
+        <input type="text" id="name" class="inputregister" placeholder="Nombre">
+        <input type="text" id="lastname" class="inputregister" placeholder="Apellido">
+        <input type="text" id="username" class="inputregister" placeholder="Nombre de usuario">
+        <input type="text" id="email" class="inputregister" placeholder="Correo electrónico">
+        <input type="password" id="password" class="inputregister" placeholder="Contraseña">
+        <input type="password" id="confirmPassword" class="inputregister" placeholder="Repetir contraseña">
         <span id="errorMsg" class="error"></span>
-        <button type="submit">Registrarse</button>
+        <button type="submit" class="buttonregister">Registrarse</button>
     </form>
 
-    <!-- Vincular el archivo JavaScript correctamente -->
     <script src="js/register.js" type="module"></script>
 </body>
 </html>

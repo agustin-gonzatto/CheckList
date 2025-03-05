@@ -3,11 +3,13 @@ document.getElementById("registerForm").addEventListener("submit", async functio
 
     // Obtener valores del formulario
     const name = document.getElementById("name").value.trim();
+    const lastname = document.getElementById("lastname").value.trim();
+    const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
 
     // Validaciones básicas
-    if (!name || !email || !password) {
+    if (!name || !lastname || !username || !email || !password) {
         document.getElementById("errorMsg").textContent = "Todos los campos son obligatorios.";
         return;
     }
@@ -28,15 +30,20 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     }
 
     // Crear objeto con los datos del formulario
-    const formData = { name, email, password };
+    const formData = {
+        name: name,
+        lastname: lastname,
+        username: username,
+        email: email,
+        password: password
+    };
 
     try {
         // Enviar datos al servidor
-        const response = await fetch("/api/auth/register", {
+        const response = await fetch("http://186.54.89.17:8080/api/v1/users/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content, // Token CSRF
             },
             body: JSON.stringify(formData),
         });
@@ -48,10 +55,10 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         } else {
             const errorData = await response.json();
             document.getElementById("errorMsg").textContent =
-                errorData.message || "Error en el registro. Por favor, inténtalo de nuevo.";
+                "Error en el registro. Por favor, inténtalo de nuevo.";
         }
     } catch (error) {
-        console.error("Error en la solicitud:", error);
+        console.log("Error en la solicitud:", error);
         document.getElementById("errorMsg").textContent =
             "Error de conexión. Por favor, inténtalo de nuevo más tarde.";
     }
