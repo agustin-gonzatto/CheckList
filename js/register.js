@@ -40,7 +40,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
 
     try {
         // Enviar datos al servidor
-        const response = await fetch("http://186.54.89.17:8080/api/v1/users/", {
+        const response = await fetch("/api/v1/users/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
