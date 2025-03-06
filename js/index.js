@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchUsers() {
-    fetch('http://localhost:8080/api/v1/users/users')  // URL de tu API para obtener los usuarios
+    fetch('/api/v1/users/users')  // URL de tu API para obtener los usuarios
         .then(response => response.json())  // Convertimos la respuesta a JSON
         .then(data => {
             const tableBody = document.querySelector('#usersTable tbody');  // Seleccionamos el cuerpo de la tabla
