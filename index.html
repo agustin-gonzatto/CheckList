@@ -1,48 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CheckList</title>
-  </head>
-  <meta name="description" content="CheckList web app">
-    <link rel="stylesheet" href="styles.css"> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación de Checklists</title>
+  <!--  <link rel="stylesheet" href="style.css">-->
+    <style>
+        /* Estilos básicos para visibilidad inicial y mensajes (puedes moverlos a style.css) */
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
+        #auth-section, #main-content { display: none; /* Controlado por JS */ }
+        .status-message { margin-top: 10px; padding: 8px; border-radius: 4px; font-weight: bold; }
+        .status-message.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status-message.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        section { background-color: #fff; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h2, h3 { color: #333; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 15px;}
+        ul { list-style: none; padding: 0; }
+        li { background-color: #f9f9f9; border: 1px solid #ddd; margin-bottom: 8px; padding: 10px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
+        li.selected { background-color: #e0e0e0; font-weight: bold; }
+        li .item-text { cursor: pointer; flex-grow: 1; margin-right: 10px; }
+         /* Estilo para items completados */
+        li.completed-item .item-text { text-decoration: line-through; color: grey; }
+        li .actions button { margin-left: 5px; padding: 3px 8px; cursor: pointer; }
+        li .actions .edit-btn { background-color: #ffc107; border: none; color: white; border-radius: 3px; }
+        li .actions .delete-btn { background-color: #dc3545; border: none; color: white; border-radius: 3px; }
+        form label { display: block; margin-bottom: 5px; font-weight: bold; }
+        form input[type="text"], form input[type="email"], form input[type="password"] { width: calc(100% - 22px); padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        form button { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        form button:hover { background-color: #0056b3; }
+        #user-info-area { text-align: right; margin-bottom: 20px; padding: 10px; background-color: #e9ecef; border-radius: 5px; }
+        .logout-button { padding: 5px 10px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 10px; }
+        .logout-button:hover { background-color: #5a6268; }
+        .item-checkbox { margin-right: 10px; } /* Espacio para el checkbox */
+
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Bienvenido a Mi Página Principal</h1>
-        <nav>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="/register.html">Register</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section id="inicio">
-            <h2>Inicio</h2>
-            <p>Contenido de la sección de inicio.</p>
+    <h1>Mi Aplicación de Checklists</h1>
+
+    <section id="auth-section">
+        <h2>Autenticación</h2>
+
+        <form id="loginForm">
+            <h3>Iniciar Sesión</h3>
+            <div>
+                <label for="login-username">Usuario:</label>
+                <input type="text" id="login-username" name="username" required>
+            </div>
+            <div>
+                <label for="login-password">Contraseña:</label>
+                <input type="password" id="login-password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+
+        <hr style="margin: 20px 0;">
+
+        <form id="registerForm">
+            <h3>Registrarse</h3>
+            <div>
+                <label for="register-username">Usuario:</label>
+                <input type="text" id="register-username" name="username" required>
+            </div>
+            <div>
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" name="email" required>
+            </div>
+            <div>
+                <label for="register-password">Contraseña:</label>
+                <input type="password" id="register-password" name="password" required>
+            </div>
+            <button type="submit">Registrar</button>
+        </form>
+
+        <div id="auth-status"></div>
+    </section>
+
+    <div id="main-content">
+
+        <div id="user-info-area">
+            </div>
+
+        <section id="dashboards-section">
+            <h2>Mis Dashboards</h2>
+            <form id="addDashboardForm">
+                <label for="new-dashboard-title">Nuevo Dashboard:</label>
+                <input type="text" id="new-dashboard-title" placeholder="Título del Dashboard" required>
+                <button type="submit">Crear Dashboard</button>
+            </form>
+            <div id="dashboard-status"></div>
+            <ul id="dashboard-list">
+                <li>Cargando dashboards...</li>
+            </ul>
         </section>
 
-        <h1>Lista de Usuarios</h1>
-        <table id="usersTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Los usuarios se agregarán aquí con JS -->
-            </tbody>
-        </table>
-    </main>
+        <section id="checklists-section" style="display: none;">
+            <h2 id="checklist-section-title">Checklists</h2>
+            <form id="addChecklistForm">
+                <label for="new-checklist-title">Nueva Checklist:</label>
+                <input type="text" id="new-checklist-title" placeholder="Título de la Checklist" required>
+                <button type="submit">Crear Checklist</button>
+            </form>
+            <div id="checklist-status"></div>
+            <ul id="checklist-list">
+                </ul>
+        </section>
 
-    <footer>
-        <p>&copy; 2025 Mi Página Principal. Todos los derechos reservados.</p>
-    </footer>
-    <script src="js/index.js" type="module"></script>
-  </body>
+        <section id="items-section" style="display: none;">
+            <h2 id="item-section-title">Items</h2>
+            <form id="addItemForm">
+                <label for="new-item-description">Nuevo Ítem:</label>
+                <input type="text" id="new-item-description" placeholder="Descripción del Ítem" required>
+                <button type="submit">Añadir Ítem</button>
+            </form>
+            <div id="item-status"></div>
+            <ul id="item-list">
+                </ul>
+        </section>
+
+    </div>
+
+    <script src="script.js" defer></script>
+    </body>
 </html>

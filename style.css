@@ -1,0 +1,159 @@
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+section {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#auth-section > div {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: calc(100% - 22px); /* Adjust for padding */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #5cb85c; /* Green - Create */
+    color: white;
+    padding: 8px 12px; /* Adjusted padding */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    margin-left: 5px; /* Add some space between buttons */
+    font-size: 0.9em; /* Slightly smaller font */
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Specific Button Styles */
+form button { /* Reset margin for form buttons */
+     margin-left: 0;
+     padding: 10px 15px; /* Restore original padding */
+     font-size: 1em; /* Restore original font size */
+}
+
+#logout-button {
+    background-color: #d9534f; /* Red */
+     margin-top: 10px; /* Keep margin */
+}
+#logout-button:hover {
+     background-color: #c9302c;
+}
+
+.edit-btn {
+    background-color: #f0ad4e; /* Orange */
+}
+.edit-btn:hover {
+    background-color: #ec971f;
+}
+
+.delete-btn {
+    background-color: #d9534f; /* Red */
+}
+.delete-btn:hover {
+    background-color: #c9302c;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 10px 15px; /* Adjusted padding */
+    margin-bottom: 8px; /* Adjusted margin */
+    border-radius: 3px;
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space between text and buttons */
+    align-items: center; /* Vertically align items */
+}
+
+li span.item-text { /* Span to hold the text */
+    flex-grow: 1; /* Allow text to take available space */
+    margin-right: 10px; /* Space before buttons */
+    cursor: pointer; /* Keep cursor pointer for selection */
+}
+
+li .actions { /* Container for buttons */
+    white-space: nowrap; /* Prevent buttons from wrapping */
+}
+
+
+li.selected {
+    background-color: #d4edda; /* Bootstrap success light */
+    border-color: #c3e6cb;
+    font-weight: bold;
+}
+
+
+.status-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.status-message.success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+}
+
+.status-message.error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+}
+
+.hidden {
+    display: none;
+}
+
+form {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+/* ... (código CSS existente) ... */
+
+/* Estilo para ítems completados */
+li.completed span.item-text {
+      text-decoration: line-through;
+     color: #777; /* O un color más claro para indicar completado */
+    }
+    
+    /* Añadir un poco de espacio para el checkbox */
+    li .item-checkbox {
+     margin-right: 10px;
+    }
+    
+    /* ... (resto del código CSS) ... */
