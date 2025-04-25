@@ -60,5 +60,9 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         document.getElementById("errorMsg").textContent =
             "Error de conexión. Por favor, inténtalo de nuevo más tarde.";
     }
+<<<<<<< HEAD:Nueva carpeta/js/register.js
             
 });
+=======
+});
+>>>>>>> c3caef7f9308643407708186aac2e1f12f762a24:js/register.js
