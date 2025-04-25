@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
     fetchUsers();
 });
 
@@ -31,3 +31,4 @@ function fetchUsers() {
             console.error('Error al obtener usuarios:', error);
         });
 }
+*/

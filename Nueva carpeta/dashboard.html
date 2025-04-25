@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Dashboards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .dashboard-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dashboard-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dashboard-item:hover {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mis Dashboards</h1>
+        <button id="newDashboardBtn">Nuevo Dashboard</button>
+        <ul class="dashboard-list" id="dashboardList"></ul>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('bearer'); // Asegúrate de tener el JWT almacenado
+
+        // Elementos del DOM
+        const dashboardList = document.getElementById('dashboardList');
+        const newDashboardBtn = document.getElementById('newDashboardBtn');
+
+        // Cargar dashboards al iniciar
+        document.addEventListener('DOMContentLoaded', loadDashboards);
+
+        async function loadDashboards() {
+            try {
+                const response = await fetch('http://localhost:8080/api/dashboards', {
+                    method: "GET",
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        window.location.href = '/login';
+                    }
+                    throw new Error('Error al cargar dashboards');
+                }
+
+                const dashboards = await response.json();
+                renderDashboards(dashboards);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al cargar los dashboards');
+            }
+        }
+
+        function renderDashboards(dashboards) {
+            dashboardList.innerHTML = '';
+            dashboards.forEach(dashboard => {
+                const li = document.createElement('li');
+                li.className = 'dashboard-item';
+                li.value = dashboard.id;
+                li.innerHTML = `
+                    <h3>${dashboard.title}</h3>
+                    <small>Creado: ${new Date(dashboard.createdAt).toLocaleDateString()}</small>
+                `;
+                
+                li.addEventListener('click', () => {;
+                    localStorage.setItem("DID",li.value);
+                    window.location.href = `/checkList.html`;
+                });
+
+                dashboardList.appendChild(li);
+            });
+        }
+
+        // Crear nuevo dashboard
+        newDashboardBtn.addEventListener('click', async () => {
+            const title = prompt('Ingrese el título del nuevo dashboard:');
+            if (!title) return;
+
+            try {
+                const response = await fetch('http://localhost:8080/api/dashboards', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ title })
+                });
+
+                if (!response.ok) throw new Error('Error al crear dashboard');
+
+                const newDashboard = await response.json();
+                loadDashboards(); // Recargar la lista
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al crear el dashboard');
+            }
+        });
+    </script>
+</body>
+</html>

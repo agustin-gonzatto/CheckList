@@ -7,7 +7,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
-
+/*
     // Validaciones básicas
     if (!name || !lastname || !username || !email || !password) {
         document.getElementById("errorMsg").textContent = "Todos los campos son obligatorios.";
@@ -28,23 +28,21 @@ document.getElementById("registerForm").addEventListener("submit", async functio
             "La contraseña debe tener al menos 10 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.";
         return;
     }
-
+*/
     // Crear objeto con los datos del formulario
     const formData = {
+        username: username,
+        password: password,
         name: name,
         lastname: lastname,
-        username: username,
-        email: email,
-        password: password
+        email: email
     };
 
     try {
         // Enviar datos al servidor
-        const response = await fetch("/api/v1/users/", {
+        const response = await fetch("https://codegarage.site/auth/register", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
         });
 
@@ -62,4 +60,5 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         document.getElementById("errorMsg").textContent =
             "Error de conexión. Por favor, inténtalo de nuevo más tarde.";
     }
+            
 });
